@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="mrp_production_workcenter_form_view_inherit">
+        <field name="name">mrp.production.work.order.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder_multi_lot.mrp_production_workcenter_form_view_inherit_multi_lot1" />
+        <field name="arch" type="xml">
+
+            <field name="finished_lot_id" position="after" >
+                <button name="generate_final_lot_code" context="{'default_workorder_id': active_id, 'default_gen_date': date_planned_start}" type="object" string="Generate New Lot Code" attrs="{'invisible': ['|', ('product_tracking', '=', 'none'), ('qty_producing', '=', 0)]}" class="oe_inline btn-info" />
+            </field>
+            <field name="finished_lot_id" position="attributes">
+                <attribute name="context">{'mrp_workorder': active_id, 'select_from_packages': True, 'default_product_id': product_id}</attribute>
+            </field>
+            <!-- <button name="button_scrap" position="before">
+                <button name="print_lot_code" type="object" string="Print Lot Code" attrs="{'invisible': ['|', ('product_tracking', '=', 'none'), ('finished_lot_id', '=', False)]}" class="" />
+            </button> -->
+
+<!--            <field name="final_lot_id" position="before">-->
+<!--                <field name="gen_date" />-->
+<!--            </field>-->
+
+        </field>
+    </record>
+</odoo>

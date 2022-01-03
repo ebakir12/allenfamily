@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_check_report_wizard" model="ir.ui.view">
+        <field name="name">Stock Check Report Wizard</field>
+        <field name="model">stock.check.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="filters">
+                    <group name="parent_filter">
+                        <field name="loc_ids1" domain="['&amp;', ('location_id', '=', 7), ('id', '!=', 17)]" widget='selection'/>
+                    </group>
+                    <group name="child_filter">
+                        <field name="loc_ids2" widget='selection' domain="['|',('location_id','=',loc_ids1), ('id','=',loc_ids1)]"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="button_export_pdf" string="Export PDF" type="object" default_focus="1" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_check_report_wizard" model="ir.actions.act_window">
+        <field name="name">Check Report</field>
+        <field name="res_model">stock.check.report.wizard</field>
+<!--        <field name="view_type">form</field>-->
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_check_report_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
