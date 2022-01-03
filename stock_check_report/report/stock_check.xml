@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_stock_check_qweb">
+        <t t-call="web.html_container">
+<!--            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="doc">
+<!--                    <div class="page">
+                        <div class="oe_structure"/>-->
+                        <t t-set="location_title" t-value="doc.location.complete_name.split('/')"/>
+                        <h2> Inventory Check Report - <span t-esc="location_title[1]"/><span t-if="len(location_title) > 2" t-esc="'/'+location_title[2]"/></h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Loc</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Lot Code</th>
+                                    <th class="text-center" colsapn="2">Quantity</th>
+                                    <th class="text-center" colspan="2">SKU Quantity</th>
+                                    <th class="text-center" style="width:10%">Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="cur_loc"/>
+                                <t t-set="cur_prod"/>
+                                <t t-set="cur_uom"/>
+                                <t t-set="first_line" t-value="False"/>
+                                <t t-set="total_quant1" t-value="0"/>
+                                <t t-set="total_quant2" t-value="0"/>
+                                <t t-foreach="doc.stock_check_ids" t-as="o">
+                                    <t t-if="cur_loc != o.loc or cur_prod != o.prod_name">
+                                        <t t-if="first_line">
+                                            <tr>
+                                                <td class="text-center" colspan="3">TOTAL</td>
+                                                <td class="text-right"><sapn t-esc="'{0:,.2f}'.format(total_quant1)"/></td>
+                                                <td class="text-center"><span t-esc="cur_uom"/></td>
+                                                <td class="text-right"><sapn t-esc="'{0:,.2f}'.format(total_quant2)"/></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </t>
+                                        <t t-set="cur_loc" t-value="o.loc"/>
+                                        <t t-set="cur_prod" t-value="o.prod_name"/>
+                                        <t t-set="total_quant1" t-value="o.quantity1"/>
+                                        <t t-set="total_quant2" t-value="o.quantity2"/>
+                                        <t t-set="cur_uom" t-value="o.uom"/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-set="total_quant1" t-value="total_quant1 + o.quantity1"/>
+                                        <t t-set="total_quant2" t-value="total_quant2 + o.quantity2"/>
+                                    </t>
+                                    <tr>
+                                        <td><span t-field="o.loc"/></td>
+                                        <td><span t-field="o.prod_name"/></td>
+                                        <td><span t-field="o.lot_code"/></td>
+                                        <td class="text-right"><sapn t-esc="'{0:,.2f}'.format(o.quantity1)"/></td>
+                                        <td class="text-center"><span t-field="o.uom"/></td>
+                                        <td class="text-right"><sapn t-esc="'{0:,.2f}'.format(o.quantity2)"/></td>
+                                        <td class="text-center"><span t-field="o.pack"/></td>
+                                    
+                                        <td></td>
+                                    </tr>
+                                    <t t-set="first_line" t-value="True"/>
+                                </t>
+                            </tbody>
+                        </table>
+<!--                    </div>-->
+                </t>
+            </t>
+<!--        </t>-->
+    </template>
+    <report
+      id="action_report_stock_check_qweb"
+      model="report_stock_check_qweb"
+      string="Inventory Check Report"
+      report_type="qweb-pdf"
+      name="stock_check_report.report_stock_check_qweb"
+      file="stock_check_report.report_stock_check_qweb"
+    />
+</odoo>

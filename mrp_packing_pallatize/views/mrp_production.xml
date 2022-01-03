@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Warehouse -->
+        <record id="mrp_production_form_view_" model="ir.ui.view">
+            <field name="name">Manufacturing Pickings</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//notebook/page[2]" position="after">
+                    <page string="Related Pickings" groups="base.group_no_one">
+                        <field name="picking_ids" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+</odoo>
