@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_stock_check_report_wizard">
+        <field name="name">Inventory Check Report</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem action="action_stock_check_report_wizard" id="menu_stock_check_report_wizard" name="Inventory Check Report" parent="stock.menu_warehouse_report" groups="base.group_user"/>
+</odoo>
