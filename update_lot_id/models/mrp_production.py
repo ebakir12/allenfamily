@@ -13,7 +13,7 @@ class MrpProduction(models.Model):
 
     def action_generate_serial(self):
         self.ensure_one()
-        self.lot_producing_id = self.env['stock.lot'].create({
+        self.lot_producing_id = self.env['stock.production.lot'].create({
             'product_id': self.product_id.id,
             'company_id': self.company_id.id,
             'name': "Test",
