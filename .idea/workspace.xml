@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="529d7a8d-ab41-4565-a116-f07c9ed5bc3d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/mrp_batch_pallet_making/models/mrp_production.py" beforeDir="false" afterPath="$PROJECT_DIR$/mrp_batch_pallet_making/models/mrp_production.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_lot_id/models/mrp_production.py" beforeDir="false" afterPath="$PROJECT_DIR$/update_lot_id/models/mrp_production.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,5 +161,16 @@
       <updated>1642750746679</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

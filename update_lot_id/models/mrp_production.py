@@ -13,7 +13,11 @@ class MrpProduction(models.Model):
 
     def action_generate_serial(self):
         self.ensure_one()
-        self.lot_producing_id = 120
+        self.lot_producing_id = self.env['stock.lot'].create({
+            'product_id': self.product_id.id,
+            'company_id': self.company_id.id,
+            'name': "Test",
+        })
         if self.move_finished_ids.filtered(lambda m: m.product_id == self.product_id).move_line_ids:
             self.move_finished_ids.filtered(
                 lambda m: m.product_id == self.product_id).move_line_ids.lot_id = self.lot_producing_id
