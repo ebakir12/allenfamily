@@ -91,7 +91,7 @@ class ProductProduct(models.Model):
 
         lot_name = str.replace(lot_name, '[MMDDYY]', gen_date.strftime("%m").zfill(2)+gen_date.strftime("%d").zfill(2)+gen_date.strftime("%Y"), 1)
         lot_name = str.replace(lot_name, '[DDMMYY]', gen_date.strftime("%d").zfill(2)+gen_date.strftime("%m").zfill(2)+gen_date.strftime("%Y"), 1)
-        lot_name = str.replace(lot_name, '[YYMMDD]', gen_date.strftime("%Y")gen_date.strftime("%m").zfill(2)+gen_date.strftime("%d").zfill(2), 1)
+        lot_name = str.replace(lot_name, '[YYMMDD]', gen_date.strftime("%Y")+gen_date.strftime("%m").zfill(2)+gen_date.strftime("%d").zfill(2), 1)
 
 
         lot_name = str.replace(lot_name, '[DAY]', gen_date.strftime("%d").zfill(2), 1)
