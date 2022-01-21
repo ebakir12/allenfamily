@@ -17,7 +17,7 @@ import re
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    last_lot_idx = fields.Char('Last lot index', help('Returns Last idx'))
+    last_lot_idx = fields.Char('Last lot index', help='Returns Last idx')
     lot_abbv = fields.Char('Lot Code Format', help='To assist with manufacturing, '
                                 'lot codes will automatically generate with this prefix.\n'
                                 'You can add other pieces to be generated, such as \n'
