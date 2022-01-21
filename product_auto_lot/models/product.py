@@ -12,7 +12,7 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMA
 
 import string
 import re
-
+import logging
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -98,9 +98,10 @@ class ProductProduct(models.Model):
             ORDER BY last_lot_idx DESC  """
             cr.execute(sql)
             response = cr.dictfetchall()
-            print(response)
+            _logger = logging.getLogger(__name__)
             if len(response) > 0:
                 last_index = response[0]
+                _logger.info(response[0])
                 last_index = int(last_index) + 1
                 if last_index < 10:
                     last_index = "00"+str(last_index)
