@@ -17,6 +17,7 @@ import re
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    last_lot_idx = fields.Char('Last lot index', help('Returns Last idx'))
     lot_abbv = fields.Char('Lot Code Format', help='To assist with manufacturing, '
                                 'lot codes will automatically generate with this prefix.\n'
                                 'You can add other pieces to be generated, such as \n'
@@ -33,7 +34,7 @@ class ProductTemplate(models.Model):
                                 'For example, CCSS-[JULIAN_DAY]-[YEARYY] will output the Julian datecode: CCSS-19118\n'
                                 'Add an extra underscore to offer employees tips on the user defined variable, \n'
                                 'such as [USER_DEFINED_MACHINE_NUMBER], will print "Machine Number" below the field.\n')
-    # last_lot_idx = fields.Char('Last lot index',help('Returns Last idx'))
+
     pallet_abbv = fields.Char('Pallet Code Format', help='To assist with manufacturing, '
                                'lot codes will automatically generate with this prefix.\n'
                                'You can add other pieces to be generated, such as \n'
@@ -91,7 +92,7 @@ class ProductProduct(models.Model):
         lot_name = self.lot_abbv
         if "[000]" in lot_name:
             cr = self.env.cr
-            sql = """SELECT  TOP 1 last_lot_idx FROM product_template ORDER BY last_lot_idx DESC  where last_lot_idx is not Null """
+            sql = """SELECT last_lot_idx FROM product_template ORDER BY last_lot_idx DESC  where last_lot_idx is not Null and ROWNUM <=1"""
             cr.execute(sql)
             response = cr.dictfetchall()
             if len(response) > 0:
