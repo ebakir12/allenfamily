@@ -100,7 +100,7 @@ class ProductProduct(models.Model):
             response = cr.dictfetchall()
             print(response)
             if len(response) > 0:
-                last_index = response[0]['last_lot_idx']
+                last_index = response[0].last_lot_idx
                 last_index = int(last_index) + 1
                 if last_index < 10:
                     last_index = "00"+str(last_index)
