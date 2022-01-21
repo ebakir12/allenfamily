@@ -17,14 +17,7 @@ class MrpProduction(models.Model):
         compute='_get_qty_per_workcenter')
     
 
-    def action_generate_serial(self):
-        self.ensure_one()
-        print("Test lot id")
-        self.lot_producing_id = 120
-        if self.move_finished_ids.filtered(lambda m: m.product_id == self.product_id).move_line_ids:
-            self.move_finished_ids.filtered(lambda m: m.product_id == self.product_id).move_line_ids.lot_id = self.lot_producing_id
-        if self.product_id.tracking == 'serial':
-            self._set_qty_producing()
+    
 
     def action_view_import_packages_wizard(self):
         self.ensure_one()
