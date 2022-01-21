@@ -100,8 +100,10 @@ class ProductProduct(models.Model):
             response = cr.dictfetchall()
             _logger = logging.getLogger(__name__)
             if len(response) > 0:
-                last_index = response[0]
+                last_index = response[0]['last_lot_idx']
                 _logger.info(response[0])
+                if last_index is None:
+                    return
                 last_index = int(last_index) + 1
                 if last_index < 10:
                     last_index = "00"+str(last_index)
@@ -110,9 +112,14 @@ class ProductProduct(models.Model):
                 else:
                     last_index = str(last_index)
                 lot_name = str.replace(lot_name,'[000]',last_index,1)
-                self.last_lot_idx = last_index
+                sql = f"""
+                            Update  product_product
+                            set last_lot_idx= '{self.ids}'
+                            where idx = '{self.ids}'
+                            """
+                cr.execute(sql)
             else:
-                lot_name = str.replace(lot_name, '[000]', "001", 1)
+                lot_name = str.replace(lot_name, '[000]', "002", 1)
 
 
 
