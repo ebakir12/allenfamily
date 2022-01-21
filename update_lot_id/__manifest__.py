@@ -8,7 +8,6 @@
     'category': 'Manufacturing',
     'depends': ['mrp', 'product', 'stock', 'resource', 'web'],
     'data': [
-        'security/ir.model.access.csv'
     ],
     'installable': True,
     'application': True,
