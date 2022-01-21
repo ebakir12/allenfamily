@@ -94,7 +94,7 @@ class ProductProduct(models.Model):
         if "[000]" in lot_name:
             cr = self.env.cr
             sql = """
-            SELECT First (last_lot_idx) FROM product_product 
+            SELECT last_lot_idx FROM product_product 
             WHERE last_lot_idx is not Null 
             ORDER BY last_lot_idx DESC  """
             cr.execute(sql)
@@ -110,6 +110,8 @@ class ProductProduct(models.Model):
                     last_index = str(last_index)
                 lot_name = str.replace(lot_name,'[000]',last_index,1)
                 self.last_lot_idx = last_index
+            else:
+                lot_name = str.replace(lot_name, '[000]', "001", 1)
 
 
 
