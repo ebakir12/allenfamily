@@ -33,7 +33,7 @@ class ProductTemplate(models.Model):
                                 'For example, CCSS-[JULIAN_DAY]-[YEARYY] will output the Julian datecode: CCSS-19118\n'
                                 'Add an extra underscore to offer employees tips on the user defined variable, \n'
                                 'such as [USER_DEFINED_MACHINE_NUMBER], will print "Machine Number" below the field.\n')
-    last_lot_idx = fields.Char('Last lot index',)
+    # last_lot_idx = fields.Char('Last lot index',help('Returns Last idx'))
     pallet_abbv = fields.Char('Pallet Code Format', help='To assist with manufacturing, '
                                'lot codes will automatically generate with this prefix.\n'
                                'You can add other pieces to be generated, such as \n'
