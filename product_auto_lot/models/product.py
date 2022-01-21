@@ -99,6 +99,7 @@ class ProductProduct(models.Model):
             ORDER BY last_lot_idx DESC  """
             cr.execute(sql)
             response = cr.dictfetchall()
+            print(response)
             if len(response) > 0:
                 last_index = response[0]['last_lot_idx']
                 last_index = int(last_index) + 1
