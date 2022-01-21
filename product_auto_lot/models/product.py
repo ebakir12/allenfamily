@@ -17,7 +17,7 @@ import re
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    last_lot_idx = fields.Char('Last lot index', help='Returns Last idx')
+
     lot_abbv = fields.Char('Lot Code Format', help='To assist with manufacturing, '
                                 'lot codes will automatically generate with this prefix.\n'
                                 'You can add other pieces to be generated, such as \n'
@@ -65,8 +65,9 @@ class ProductTemplate(models.Model):
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
-    
+
     lookup_code = fields.Char(string='Product Code')
+    last_lot_idx = fields.Char('Last lot index', help='Returns Last idx')
 
     @api.model
     def _regex(self, lotcode, search, user_defined):
@@ -92,7 +93,7 @@ class ProductProduct(models.Model):
         lot_name = self.lot_abbv
         if "[000]" in lot_name:
             cr = self.env.cr
-            sql = """SELECT Last last_lot_idx FROM product_template ORDER BY last_lot_idx DESC  where last_lot_idx is not Null"""
+            sql = """SELECT Last last_lot_idx FROM product_product ORDER BY last_lot_idx ASC  where last_lot_idx is not Null"""
             cr.execute(sql)
             response = cr.dictfetchall()
             if len(response) > 0:
@@ -105,8 +106,8 @@ class ProductProduct(models.Model):
                 else:
                     last_index = str(last_index)
                 lot_name = str.replace(lot_name,'[000]',last_index,1)
-                sql = f"""UPDATE product_template set last_lot_idx ='{last_index}' where id = '{self.ids}' """
-                cr.execute(sql)
+                self.last_lot_idx = last_index
+
 
 
         lot_name = str.replace(lot_name, '[JULIAN]', '%d%03d' % (gen_date.timetuple().tm_year, gen_date.timetuple().tm_yday), 1)
