@@ -85,11 +85,19 @@ class ProductProduct(models.Model):
         lot_name = str.replace(lot_name, '[JULIAN_DAY]', str(gen_date.timetuple().tm_yday).zfill(3), 1)
         lot_name = str.replace(lot_name, '[YEARYY]', gen_date.strftime("%y"), 1)
         lot_name = str.replace(lot_name, '[YEAR]', gen_date.strftime("%Y"), 1)
+        lot_name = str.replace(lot_name, '[YYYY]', gen_date.strftime("%Y"), 1)
         lot_name = str.replace(lot_name, '[STATION_CODE]', '', 1)
         lot_name = str.replace(lot_name, '[DATE]', fields.Date.to_string(gen_date), 1)
 
+        lot_name = str.replace(lot_name, '[MMDDYY]', gen_date.strftime("%m").zfill(2)+gen_date.strftime("%d").zfill(2)+gen_date.strftime("%Y"), 1)
+        lot_name = str.replace(lot_name, '[DDMMYY]', gen_date.strftime("%d").zfill(2)+gen_date.strftime("%m").zfill(2)+gen_date.strftime("%Y"), 1)
+        lot_name = str.replace(lot_name, '[YYMMDD]', gen_date.strftime("%Y")gen_date.strftime("%m").zfill(2)+gen_date.strftime("%d").zfill(2), 1)
+
+
         lot_name = str.replace(lot_name, '[DAY]', gen_date.strftime("%d").zfill(2), 1)
+        lot_name = str.replace(lot_name, '[DD]', gen_date.strftime("%d").zfill(2), 1)
         lot_name = str.replace(lot_name, '[MONTH]', gen_date.strftime("%m").zfill(2), 1)
+        lot_name = str.replace(lot_name, '[MM]', gen_date.strftime("%m").zfill(2), 1)
         lot_name = str.replace(lot_name, '[SECOND]', gen_date.strftime("%S").zfill(2), 1)
         lot_name = str.replace(lot_name, '[HOUR]', gen_date.strftime("%H").zfill(2), 1)
         lot_name = str.replace(lot_name, '[MINUTE]', gen_date.strftime("%M").zfill(2), 1)
