@@ -33,7 +33,7 @@ class ProductTemplate(models.Model):
                                 'For example, CCSS-[JULIAN_DAY]-[YEARYY] will output the Julian datecode: CCSS-19118\n'
                                 'Add an extra underscore to offer employees tips on the user defined variable, \n'
                                 'such as [USER_DEFINED_MACHINE_NUMBER], will print "Machine Number" below the field.\n')
-
+    last_lot_idx = fields.Char('Last lot index',)
     pallet_abbv = fields.Char('Pallet Code Format', help='To assist with manufacturing, '
                                'lot codes will automatically generate with this prefix.\n'
                                'You can add other pieces to be generated, such as \n'
@@ -42,8 +42,14 @@ class ProductTemplate(models.Model):
                                '- [JULIAN_DAY] - Julian day\n'
                                '- [YEARYY] - Last two digits of year\n'
                                '- [MONTH] - 01-12 Month\n'
+                               '- [MM] - 01-12 Month\n' 
                                '- [DAY] - 01-31 Day\n'
+                               '- [DD] - 01-31 Day\n' 
                                '- [YEAR] - Full year\n' 
+                               '- [YY] - Full year\n' 
+                               '-[YYMMDD] - YearMonthDay\n'
+                               '-[DDMMYY] - DayMonthYear\n'
+                               '-[MMDDYY] - MonthDayYear\n'
                                '- [OPERATION_CODE] - Manufacturing Operation Code\n'
                                '- [WORKCENTER_CODE] - The Workcenter Code\n'                                
                                '- [WAREHOUSE_CODE] - Warehouse Code\n'
@@ -80,7 +86,28 @@ class ProductProduct(models.Model):
             gen_date = gen_date.replace(tzinfo=tz.tzutc())
             gen_date = gen_date.astimezone(tz.gettz(self.env.context['tz']))
 
+
+
         lot_name = self.lot_abbv
+        if "[000]" in lot_name:
+            cr = self.env.cr
+            sql = """SELECT  TOP 1 last_lot_idx FROM product_template ORDER BY last_lot_idx DESC  where last_lot_idx is not Null """
+            cr.execute(sql)
+            response = cr.dictfetchall()
+            if len(response) > 0:
+                last_index = response[0]['last_lot_idx']
+                last_index = int(last_index) + 1
+                if last_index < 10:
+                    last_index = "00"+str(last_index)
+                elif last_index >= 10 and last_index <= 99:
+                    last_index = "0"+str(last_index)
+                else:
+                    last_index = str(last_index)
+                lot_name = str.replace(lot_name,'[000]',last_index,1)
+                sql = f"""UPDATE product_template set last_lot_idx ='{last_index}' where id = '{self.ids}' """
+                cr.execute(sql)
+
+
         lot_name = str.replace(lot_name, '[JULIAN]', '%d%03d' % (gen_date.timetuple().tm_year, gen_date.timetuple().tm_yday), 1)
         lot_name = str.replace(lot_name, '[JULIAN_DAY]', str(gen_date.timetuple().tm_yday).zfill(3), 1)
         lot_name = str.replace(lot_name, '[YEARYY]', gen_date.strftime("%y"), 1)
