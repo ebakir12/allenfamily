@@ -101,9 +101,9 @@ class ProductProduct(models.Model):
             _logger = logging.getLogger(__name__)
             if len(response) > 0:
                 last_index = response[0]['last_lot_idx']
-                _logger.info(response)
+                _logger.info(str(self.id) + "MOHANAD")
                 if last_index is None:
-                    last_index = "003"
+                    last_index = "004"
                 else:
                     last_index = int(last_index) + 1
                     if last_index < 10:
