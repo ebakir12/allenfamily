@@ -103,21 +103,22 @@ class ProductProduct(models.Model):
                 last_index = response[0]['last_lot_idx']
                 _logger.info(response[0])
                 if last_index is None:
-                    return
-                last_index = int(last_index) + 1
-                if last_index < 10:
-                    last_index = "00"+str(last_index)
-                elif last_index >= 10 and last_index <= 99:
-                    last_index = "0"+str(last_index)
+                    last_index = "001"
                 else:
-                    last_index = str(last_index)
+                    last_index = int(last_index) + 1
+                    if last_index < 10:
+                        last_index = "00"+str(last_index)
+                    elif last_index >= 10 and last_index <= 99:
+                        last_index = "0"+str(last_index)
+                    else:
+                        last_index = str(last_index)
                 lot_name = str.replace(lot_name,'[000]',last_index,1)
-                # sql = f"""
-                #             Update  product_product
-                #             set last_lot_idx= '{self.ids}'
-                #             where idx = '{self.ids}'
-                #             """
-                # cr.execute(sql)
+                sql = f"""
+                            Update  product_product
+                            set last_lot_idx= '{self.ids}'
+                            where idx = '{self.ids}'
+                            """
+                cr.execute(sql)
             else:
                 lot_name = str.replace(lot_name, '[000]', "001", 1)
 
