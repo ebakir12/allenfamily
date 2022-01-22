@@ -94,7 +94,7 @@ class ProductProduct(models.Model):
         if "[000]" in lot_name:
             cr = self.env.cr
             sql = """
-            SELECT last_lot_idx,description FROM product_product
+            SELECT * FROM product_product
             ORDER BY last_lot_idx DESC  """
             cr.execute(sql)
             response = cr.dictfetchall()
