@@ -116,7 +116,7 @@ class ProductProduct(models.Model):
                 sql = f"""
                             Update  product_product
                             set last_lot_idx= '{self.ids}'
-                            where idx = '{self.ids}'
+                            where id = '{self.id}'
                             """
                 cr.execute(sql)
             else:
