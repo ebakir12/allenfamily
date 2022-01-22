@@ -94,16 +94,16 @@ class ProductProduct(models.Model):
         if "[000]" in lot_name:
             cr = self.env.cr
             sql = """
-            SELECT last_lot_idx FROM product_product
+            SELECT last_lot_idx,name FROM product_product
             ORDER BY last_lot_idx DESC  """
             cr.execute(sql)
             response = cr.dictfetchall()
             _logger = logging.getLogger(__name__)
             if len(response) > 0:
                 last_index = response[0]['last_lot_idx']
-                _logger.info(response[0])
+                _logger.info(response)
                 if last_index is None:
-                    last_index = "002"
+                    last_index = "003"
                 else:
                     last_index = int(last_index) + 1
                     if last_index < 10:
