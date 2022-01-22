@@ -95,6 +95,7 @@ class ProductProduct(models.Model):
             cr = self.env.cr
             sql = """
             SELECT * FROM product_product
+            where last_lot_idx is not NULL
             ORDER BY last_lot_idx DESC  """
             cr.execute(sql)
             response = cr.dictfetchall()
@@ -102,8 +103,9 @@ class ProductProduct(models.Model):
             if len(response) > 0:
                 last_index = response[0]['last_lot_idx']
                 _logger.info(str(self.id) + "MOHANAD")
+                _logger.info(str(response[0]['last_lot_idx']) + "MOHANAD")
                 if last_index is None:
-                    last_index = "004"
+                    last_index = "005"
                 else:
                     last_index = int(last_index) + 1
                     if last_index < 10:
