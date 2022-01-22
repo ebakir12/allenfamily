@@ -94,7 +94,7 @@ class ProductProduct(models.Model):
         if "[000]" in lot_name:
             cr = self.env.cr
             sql = """
-            SELECT * FROM product_product
+            SELECT last_lot_idx FROM product_product
             where last_lot_idx is not NULL
             ORDER BY last_lot_idx DESC  """
             cr.execute(sql)
@@ -102,10 +102,8 @@ class ProductProduct(models.Model):
             _logger = logging.getLogger(__name__)
             if len(response) > 0:
                 last_index = response[0]['last_lot_idx']
-                _logger.info(str(self.id) + "MOHANAD")
-                _logger.info(str(response[0]['last_lot_idx']) + "MOHANAD")
                 if last_index is None:
-                    last_index = "005"
+                    last_index = "001"
                 else:
                     last_index = int(last_index) + 1
                     if last_index < 10:
