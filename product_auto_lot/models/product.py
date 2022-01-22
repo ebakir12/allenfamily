@@ -112,12 +112,12 @@ class ProductProduct(models.Model):
                 else:
                     last_index = str(last_index)
                 lot_name = str.replace(lot_name,'[000]',last_index,1)
-                sql = f"""
-                            Update  product_product
-                            set last_lot_idx= '{self.ids}'
-                            where idx = '{self.ids}'
-                            """
-                cr.execute(sql)
+                # sql = f"""
+                #             Update  product_product
+                #             set last_lot_idx= '{self.ids}'
+                #             where idx = '{self.ids}'
+                #             """
+                # cr.execute(sql)
             else:
                 lot_name = str.replace(lot_name, '[000]', "001", 1)
 
